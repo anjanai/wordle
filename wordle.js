@@ -3,9 +3,14 @@ import { WORDS } from "./words.js";
 const NUMBER_OF_GUESSES = 6;
 let guessesRemaining = NUMBER_OF_GUESSES;
 let currentGuess = [];
-let nextLetter = 0;
-let rightGuessString = WORDS[Math.floor(Math.random() * WORDS.length)]
-//console.log(rightGuessString)
+let nextIndex = localStorage.getItem('next');
+if (!nextIndex) nextIndex = -1;
+nextIndex++;
+if (nextIndex >= WORDS.length) nextIndex=0;
+let rightGuessString = WORDS[nextIndex];
+console.log(nextIndex, rightGuessString)
+
+let wordlen = rightGuessString.length;
 
 function initBoard() {
     let board = document.getElementById("game-board");
@@ -14,7 +19,7 @@ function initBoard() {
         let row = document.createElement("div")
         row.className = "letter-row"
         
-        for (let j = 0; j < 5; j++) {
+        for (let j = 0; j < wordlen; j++) {
             let box = document.createElement("div")
             box.className = "letter-box"
             row.appendChild(box)
@@ -71,7 +76,7 @@ function checkGuess () {
         guessString += val
     }
 
-    if (guessString.length != 5) {
+    if (guessString.length != wordlen) {
         toastr.error("Not enough letters!")
         return
     }
@@ -83,7 +88,7 @@ function checkGuess () {
     }
 */
     
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < wordlen; i++) {
         let letterColor = ''
         let box = row.children[i]
         let letter = currentGuess[i]
@@ -120,6 +125,7 @@ function checkGuess () {
     if (guessString === rightGuessString) {
         toastr.success("You guessed right! Game over!")
         guessesRemaining = 0
+	localStorage.setItem('next', nextIndex)
         return
     } else {
         guessesRemaining -= 1;
@@ -169,7 +175,7 @@ const animateCSS = (element, animation, prefix = 'animate__') =>
   });
 
 function insertLetter (pressedKey) {
-    if (nextLetter === 5) {
+    if (nextLetter === wordlen) {
         return
     }
     pressedKey = pressedKey.toLowerCase()

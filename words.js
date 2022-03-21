@@ -1,4 +1,5 @@
-export const WORDS = `faltu`.split(/\s+/);
+export const WORDS = `faltu useless`.split(/\s+/);
+export const sWORDS = `varmax fifty noida kaddu`.split(/\s+/);
  export const xWORDS = [
     'which',
     'there',
