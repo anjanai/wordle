@@ -3,6 +3,7 @@ import { WORDS } from "./words.js";
 const NUMBER_OF_GUESSES = 6;
 let guessesRemaining = NUMBER_OF_GUESSES;
 let currentGuess = [];
+let nextLetter = 0;
 let nextIndex = localStorage.getItem('next');
 if (!nextIndex) nextIndex = -1;
 nextIndex++;
