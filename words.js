@@ -1,4 +1,4 @@
-export const WORDS = `happy fifty`.split(/\s+/);
+export const WORDS = `faltu`.split(/\s+/);
  export const xWORDS = [
     'which',
     'there',
