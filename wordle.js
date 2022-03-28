@@ -1,15 +1,24 @@
 import { WORDS } from "./words.js";
 
+
 const NUMBER_OF_GUESSES = 6;
 let guessesRemaining = NUMBER_OF_GUESSES;
 let currentGuess = [];
 let nextLetter = 0;
+
+const urlParams = new URLSearchParams(window.location.search);
+let n = urlParams.get('n');
+if (!n) n=0;
+
+/*
 let nextIndex = localStorage.getItem('next');
 if (!nextIndex) nextIndex = -1;
 nextIndex++;
 if (nextIndex >= WORDS.length) nextIndex=0;
-let rightGuessString = WORDS[nextIndex];
-console.log(nextIndex, rightGuessString)
+*/
+
+let rightGuessString = WORDS[n];
+console.log(n, rightGuessString)
 
 let wordlen = rightGuessString.length;
 
@@ -78,7 +87,7 @@ function checkGuess () {
     }
 
     if (guessString.length != wordlen) {
-        toastr.error("Not enough letters!")
+        toastr.error("Oy! Not enough letters!")
         return
     }
 
@@ -124,9 +133,9 @@ function checkGuess () {
     }
 
     if (guessString === rightGuessString) {
-        toastr.success("You guessed right! Game over!")
+        toastr.success("Wah wah! Kya baat hai!")
         guessesRemaining = 0
-	localStorage.setItem('next', nextIndex)
+	localStorage.setItem('next', n)
         return
     } else {
         guessesRemaining -= 1;
@@ -134,7 +143,7 @@ function checkGuess () {
         nextLetter = 0;
 
         if (guessesRemaining === 0) {
-            toastr.error("You've run out of guesses! Game over!")
+            toastr.error("Kya yaar! You disappoint me!")
             toastr.info(`The right word was: "${rightGuessString}"`)
         }
     }
